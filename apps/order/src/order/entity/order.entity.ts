@@ -6,6 +6,7 @@ import {
   DeliveryAddressSchema,
 } from './delivery-address.entity';
 import { Payment, PaymentSchema } from './payment.entity';
+import { Document, ObjectId } from 'mongoose';
 
 export enum OrderStatus {
   pending = 'pending',
@@ -17,20 +18,35 @@ export enum OrderStatus {
 }
 
 @Schema()
-export class Order extends Document {
-  @Prop({ type: CustomerSchema, required: true })
+export class Order extends Document<ObjectId> {
+  @Prop({
+    type: CustomerSchema,
+    required: true,
+  })
   customer: Customer;
 
-  @Prop({ type: ProductSchema, required: true })
+  @Prop({
+    type: [ProductSchema],
+    required: true,
+  })
   products: Product[];
 
-  @Prop({ type: DeliveryAddressSchema, required: true })
+  @Prop({
+    type: DeliveryAddressSchema,
+    required: true,
+  })
   deliveryAddress: DeliveryAddress;
 
-  @Prop({ enum: OrderStatus, default: OrderStatus.pending })
+  @Prop({
+    enum: OrderStatus,
+    default: OrderStatus.pending,
+  })
   status: OrderStatus;
 
-  @Prop({ type: PaymentSchema, required: true })
+  @Prop({
+    type: PaymentSchema,
+    required: true,
+  })
   payment: Payment;
 }
 

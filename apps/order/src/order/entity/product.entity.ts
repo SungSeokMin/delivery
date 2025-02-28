@@ -4,13 +4,19 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
   _id: false,
 })
 export class Product {
-  @Prop({ required: true })
+  @Prop({
+    required: true,
+  })
   productId: string;
 
-  @Prop({ required: true })
+  @Prop({
+    required: true,
+  })
   name: string;
 
-  @Prop({ required: true })
+  @Prop({
+    required: true,
+  })
   price: number;
 }
 

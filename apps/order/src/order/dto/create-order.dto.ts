@@ -11,9 +11,11 @@ export class CreateOrderDto {
 
   @ValidateNested()
   @Type(() => AddressDto)
+  @IsNotEmpty()
   address: AddressDto;
 
   @ValidateNested()
   @Type(() => PaymentDto)
+  @IsNotEmpty()
   payment: PaymentDto;
 }

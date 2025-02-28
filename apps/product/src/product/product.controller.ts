@@ -8,7 +8,7 @@ import {
 import { ProductService } from './product.service';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { GetProductsInfo } from './dto/get-products-info.dto';
-import { RpcInterceptor } from '@app/common/interceptor/rpc.interceptor';
+import { RpcInterceptor } from '@app/common';
 
 @Controller('product')
 export class ProductController {

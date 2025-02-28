@@ -1,14 +1,22 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
-@Schema({ _id: false })
+@Schema({
+  _id: false,
+})
 export class Customer {
-  @Prop({ required: true })
+  @Prop({
+    required: true,
+  })
   userId: string;
 
-  @Prop({ required: true })
+  @Prop({
+    required: true,
+  })
   email: string;
 
-  @Prop({ required: true })
+  @Prop({
+    required: true,
+  })
   name: string;
 }
 
