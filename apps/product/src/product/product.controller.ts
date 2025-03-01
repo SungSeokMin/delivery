@@ -1,6 +1,5 @@
 import {
   Controller,
-  Post,
   UseInterceptors,
   UsePipes,
   ValidationPipe,
@@ -14,7 +13,9 @@ import { RpcInterceptor } from '@app/common';
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
-  @Post('sample')
+  @MessagePattern({ cmd: 'createSamples' })
+  @UsePipes(ValidationPipe)
+  @UseInterceptors(RpcInterceptor)
   createSamples() {
     return this.productService.createSamples();
   }

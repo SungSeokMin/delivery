@@ -3,9 +3,8 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { RegisterDto } from './dto/register-dto';
+import { RegisterDto } from './dto/register.dto';
 import { UserService } from '../user/user.service';
-import { Authorization } from './decorator/authorization.decorator';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../user/entity/user.entity';
 import { Repository } from 'typeorm';
@@ -23,7 +22,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  register(@Authorization() basicToken: string, registerDto: RegisterDto) {
+  register(basicToken: string, registerDto: RegisterDto) {
     const { email, password } = this.parseBasicToken(basicToken);
 
     return this.userService.create({

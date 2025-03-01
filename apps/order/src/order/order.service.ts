@@ -26,11 +26,11 @@ export class OrderService {
     private readonly orderModel: Model<Order>,
   ) {}
 
-  async createOrder(createOrderDto: CreateOrderDto, token: string) {
-    const { productIds, address, payment } = createOrderDto;
+  async createOrder(createOrderDto: CreateOrderDto) {
+    const { productIds, address, payment, meta } = createOrderDto;
 
     // 사용자 정보 가져오기
-    const user = await this.getUserFromToken(token);
+    const user = await this.getUserFromToken(meta.user.sub);
 
     // 상품 정보 가져오기
     const products = await this.getProductsByIds(productIds);
@@ -59,18 +59,7 @@ export class OrderService {
     return JSON.parse(JSON.stringify(result));
   }
 
-  private async getUserFromToken(token: string) {
-    // User MS : JWT 토큰 검증
-    const tokenResponse = await lastValueFrom(
-      this.userService.send({ cmd: 'parse_bearer_token' }, { token }),
-    );
-
-    if (tokenResponse.status === 'error') {
-      throw new PaymentCancelledException(tokenResponse);
-    }
-
-    // User MS : 사용자 정보 가져오기
-    const userId = tokenResponse.data.sub;
+  private async getUserFromToken(userId: string) {
     const userResponse = await lastValueFrom(
       this.userService.send({ cmd: 'get_user_info' }, { userId }),
     );
