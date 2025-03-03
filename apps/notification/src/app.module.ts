@@ -25,10 +25,10 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
         {
           name: ORDER_SERVICE,
           useFactory: (configService: ConfigService) => ({
-            transport: Transport.TCP,
+            transport: Transport.REDIS,
             options: {
-              host: configService.getOrThrow<string>('ORDER_HOST'),
-              port: configService.getOrThrow<number>('ORDER_TCP_PORT'),
+              host: 'redis',
+              port: 6379,
             },
           }),
           inject: [ConfigService],
